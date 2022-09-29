@@ -13,7 +13,7 @@
         int menuOp = -1;
         
         char instructorRegister[] = "0000";
-        bool run_bit = true; //um bit que pode ser desligado para parar a máquina
+        bool run_bit = true; //um bit que pode ser desligado para parar a mï¿½quina
 
         // Registers
         int programCounter = 0;
@@ -177,7 +177,7 @@
 	}
 		
 
-//Utilizado para pegar a célula de memória desejada
+//Utilizado para pegar a cï¿½lula de memï¿½ria desejada
 char GetMemoryCell(char memory[MEMORY_SIZE], int rowNumber)
 {            
     return memory[rowNumber];
@@ -192,7 +192,7 @@ static void Programa()
             PrintFlags("INICIAIS");
             PrintRegisters("INICIAIS");
 
-            printf("%s","== EXECUÇÃO ==\n");
+            printf("%s","== EXECUï¿½ï¿½O ==\n");
             //Console.WriteLine();
 
             //INICIO CICLO
@@ -203,7 +203,7 @@ static void Programa()
             }
 
             Console.WriteLine();
-            Console.WriteLine("== FIM EXECUÇÃO ==");
+            Console.WriteLine("== FIM EXECUï¿½ï¿½O ==");
             Console.WriteLine();
 
             PrintMemory(selectedMemorySetup, "FINAL");
