@@ -124,8 +124,12 @@ void array_copy(int source_array[], int destination_array[]){
 void add()
         {
         	
-        	int *selected_memory_setup[]; 
-			array_copy(selected_memory_setup, M1);			
+        	
+        	//Teste de copia de atribuiçao de um vetor em outro
+        	
+        	
+        	//int *selected_memory_setup[]; 
+			//array_copy(selected_memory_setup, M1);			
 			
             //Obter valor registrador A
             //int A_memory_address = get_memory_cell(selected_memory_setup, program_counter); 
@@ -140,8 +144,8 @@ void add()
             int B_memory_address = get_memory_cell(M1, program_counter); //Valor endereco em decimal
            
            	
-            B_register = get_memory_cell(selected_memory_setup, B_memory_address);
-           
+            //B_register = get_memory_cell(selected_memory_setup, B_memory_address);
+           B_register = get_memory_cell(M1, B_memory_address);
 
             int result = A_register + B_register;
             
@@ -153,6 +157,7 @@ void add()
             program_counter++;
 
             //GUARDAR VALOR DO RESULTADO NA MEMORIA
+            //int storage_address = get_memory_cell(selected_memory_setup, program_counter); //Valor endereco em decimal
             int storage_address = get_memory_cell(selected_memory_setup, program_counter); //Valor endereco em decimal
             set_memory_cell(selected_memory_setup, storage_address, A_register);
         }
