@@ -37,8 +37,8 @@ int M1[] =
     0b0111,
     0b1111,
     0b0000,
-    0b1000,
-    0b0011,
+    0b0101,
+    0b0111,
     0b1100
 };
 
@@ -46,6 +46,8 @@ int M1[] =
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "Portuguese");
 	
+	printf("\n;---------------ANTES---------------\n");
+	print_binary_array(M1, 8);	
 	int m2[] = { 0b0010, -5, 0b1111, CLR, // o "programa" inicia aqui
 				ADDI, 12, ADDI, 7, ADDM, 0, ADDM, 1, CLR, HALT };
 			printf("%s", "Imagem de memória 1: \n");
@@ -53,9 +55,9 @@ int main(int argc, char *argv[]) {
 			interpreter(M1, 0);// start at CLR
 	
 	
-	printf("\n;-----------------------------\n");
-	print_binary_array(m2, 14);
-	printf("\n;-----------------------------\n");	
+
+	printf("\n;---------------DEPOIS---------------\n");
+	print_binary_array(M1, 8);	
 	//add();
     
 	return 0;
@@ -85,7 +87,7 @@ void interpreter(int memory[], int starting_address){
             data_loc = find_data(instruction, instr_type, memory); // localiza dados (–1 se nenhum)
             if (data_loc >= 0) // se data_loc é –1, não há nenhum operando
             { data = memory[data_loc]; } // busca os dados
-            execute(instr_type, data); // executa instrução
+            execute(instr_type, data, memory); // executa instrução
         }
 }   
 
@@ -180,16 +182,14 @@ int find_data(int opcode, int type, int memory[]){
             return memory[program_counter];
         }
         if (opcode == ADD){
-        	int x_value = memory[program_counter];
-        	program_counter++;
-        	int y_value = memory[program_counter];        	
-        	return x_value + y_value;
+        	      	
+        	return memory[program_counter];
 		}
         else
             return -1;
 }
 
-void execute(int instr_type, int data){
+void execute(int instr_type, int data, int memory[]){
     if (instr_type == CLR)
     {
         accumulator = 0;
@@ -206,8 +206,13 @@ void execute(int instr_type, int data){
         printf("%d", accumulator);
     }
     if (instr_type == ADD)
-    {
+    {    	
+    	program_counter++;
+    	int x_value = memory[program_counter];        
+        data =  data + x_value;        
         accumulator = accumulator + data;
+        //Save em memoria temporariamente dentro de Execute
+        memory[program_counter] = accumulator;
         printf("SOMA %d", accumulator);
     }
     
