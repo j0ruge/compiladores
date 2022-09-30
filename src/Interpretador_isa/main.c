@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <locale.h>
 
-// Linguagem de entrada e saída estao corretas
+// Linguagem de entrada e saída estao corretas , ENTRADA E SAIDA EM BINARIO
 // A da atividade dois e a sintaxe da um 
 // organização de código
 // compatibilidade 
@@ -37,9 +37,8 @@ int M1[] =
     0b0111,
     0b1111,
     0b0000,
-    0b0101,
-    0b0111,
-    0b1100
+    0b0100,
+    0b0011    
 };
 
 
@@ -82,7 +81,7 @@ void interpreter(int memory[], int starting_address){
 	while (run_bit)
         {
             instruction = memory[program_counter]; // busca a próxima instrução e armazena em instruction
-            program_counter = program_counter + 1; // incrementa contador de programa
+            program_counter++; // incrementa contador de programa
             instr_type = get_instr_type(instruction); // determina tipo da instrução
             data_loc = find_data(instruction, instr_type, memory); // localiza dados (–1 se nenhum)
             if (data_loc >= 0) // se data_loc é –1, não há nenhum operando
@@ -208,7 +207,8 @@ void execute(int instr_type, int data, int memory[]){
     if (instr_type == ADD)
     {    	
     	program_counter++;
-    	int x_value = memory[program_counter];        
+    	int x_value = memory[program_counter]; 
+		int x_value = memory[program_counter]; 
         data =  data + x_value;        
         accumulator = accumulator + data;
         //Save em memoria temporariamente dentro de Execute
