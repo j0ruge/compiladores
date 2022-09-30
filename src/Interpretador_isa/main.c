@@ -31,14 +31,15 @@ int B_register = 0b0000;
 //ADD Reg_A Reg_B
 int M1[] = 
 {
-    0b0001,
+    0b0100,
     0b0110,
     0b0111,
     0b0111,
     0b1111,
     0b0000,
     0b1000,
-    0b0011
+    0b0011,
+    0b1100
 };
 
 
@@ -47,20 +48,15 @@ int main(int argc, char *argv[]) {
 	
 	int m2[] = { 0b0010, -5, 0b1111, CLR, // o "programa" inicia aqui
 				ADDI, 12, ADDI, 7, ADDM, 0, ADDM, 1, CLR, HALT };
-			printf("%s", "Imagem de memória 1: ");
-			interpreter(m2, 3);// start at CLR
+			printf("%s", "Imagem de memória 1: \n");
+			//interpreter(m2, 3);// start at CLR
+			interpreter(M1, 0);// start at CLR
 	
-	printf("\n%d", m2[0]);
-	printf("\n%d", m2[1]);
-	printf("\n%d", m2[2]);
-	printf("\n%d", m2[3]);
 	
-	printf("\n;-----------------------------\n");
-	print_binary(m2[3]);
 	printf("\n;-----------------------------\n");
 	print_binary_array(m2, 14);
 	printf("\n;-----------------------------\n");	
-	add();
+	//add();
     
 	return 0;
 }
@@ -123,15 +119,9 @@ void array_copy(int source_array[], int destination_array[]){
 
 void add()
         {
-        	
-        	
-        	//Teste de copia de atribuiçao de um vetor em outro
-        	
-        	
-        	//int *selected_memory_setup[]; 
-			//array_copy(selected_memory_setup, M1);			
 			
             //Obter valor registrador A
+            
             //int A_memory_address = get_memory_cell(selected_memory_setup, program_counter); 
             int A_memory_address = get_memory_cell(M1, program_counter); 
            // A_register = get_memory_cell(selected_memory_setup, A_memory_address);  
@@ -158,8 +148,8 @@ void add()
 
             //GUARDAR VALOR DO RESULTADO NA MEMORIA
             //int storage_address = get_memory_cell(selected_memory_setup, program_counter); //Valor endereco em decimal
-            int storage_address = get_memory_cell(selected_memory_setup, program_counter); //Valor endereco em decimal
-            set_memory_cell(selected_memory_setup, storage_address, A_register);
+            int storage_address = get_memory_cell(M1, program_counter); //Valor endereco em decimal
+            set_memory_cell(M1, storage_address, A_register);
         }
         
 //Utilizado para pegar a célula de memória desejada
@@ -189,6 +179,12 @@ int find_data(int opcode, int type, int memory[]){
         {
             return memory[program_counter];
         }
+        if (opcode == ADD){
+        	int x_value = memory[program_counter];
+        	program_counter++;
+        	int y_value = memory[program_counter];        	
+        	return x_value + y_value;
+		}
         else
             return -1;
 }
@@ -209,6 +205,12 @@ void execute(int instr_type, int data){
         accumulator = accumulator + data;
         printf("%d", accumulator);
     }
+    if (instr_type == ADD)
+    {
+        accumulator = accumulator + data;
+        printf("SOMA %d", accumulator);
+    }
+    
     if (instr_type == HALT)
     {
         run_bit = false;
