@@ -3,46 +3,28 @@
 #include <stdbool.h>
 #include <locale.h>
 
-//#define NUMBERBASE 2;
 
+static int MEMORYSIZE = 64;
 int program_counter; // contador de programa contém endere
 int instruction; // um registrador para conter a instrução corrente
 bool runbit = true;
 
 int CLR = 0b1000;// <-- limpa o valor do accumulator.
-int ADD = 0b0100;// <-- instrução soma A e B
-int HALT = 0b1100;// <-- instrução que desliga o processador
-//int operand_A;
-//int operand_B;
-//int operand_C;
+int ADD = 0b0100;// <-- instrução soma A e B.
+int SUB = 0b0101;// <-- instrução subtração A e B.
+int HALT = 0b1100;// <-- instrução que desliga o processador.
 int memoria[64] = {0};
  
-
-//ADD Reg_A Reg_B
-int M1[] = 
-{
-    0b0100,
-    0b0110,
-    0b0111,
-    0b0111,
-    0b1111,
-    0b0000,
-    0b0100,
-    0b0011    
-};
-
-
-	
 
 int main(int argc, char *argv[]) {	
 	setlocale(LC_ALL, "Portuguese");
 		
 	program_counter = 0;
 	 	
-	load_memory("memory.bin");
-
+	//load_memory("memory.bin");
+	load_memory(argv[1]);
 	
-	printf("Antes");
+	printf("\nAntes\n");
 	DumpMemoria();
 
 	while (runbit)
@@ -56,17 +38,21 @@ int main(int argc, char *argv[]) {
 			case 0b0100: // ADD            
 	            add();            
 	            break;		
+	        case 0b0101: // SUB            
+	            sub();            
+	            break;
 			case 0b1100: //HALT
 	        	quit();
 	        	break;
 		}
-		
-		
-		
+						
 		program_counter++;
+		if(program_counter >= MEMORYSIZE){
+			runbit=false;
+		}
 	}
 	
-	printf("Depois");
+	printf("\nDepois\n");
 	DumpMemoria();
 	return 0;
 };
@@ -75,23 +61,23 @@ int main(int argc, char *argv[]) {
 
 void load_memory(char *file_name)
 	{	
-		printf("Gabiru!");
 		int counter = 0;
 		FILE *file;
-		char *line; 
+		char line[100]; 
 		
 		file = fopen(file_name, "r");
-		if(file_name == NULL){
-			printf("File does not exist.");
-		}
-	
-		while(fscanf(file,"%s",line) != EOF)
+		
+		
+		if(file == NULL){
+			printf("Memory file does not exist.");
+			exit(0);
+		}		 
+		while( fscanf(file,"%s",line) != EOF)
 		{
 			memoria[counter] = strtol(line, NULL, 2);
 			counter++;
 		}
-	
-		//fechar arquivo;
+		fclose(file);		
 	};
 
 	int read_memory(int address)
@@ -99,22 +85,27 @@ void load_memory(char *file_name)
 		return memoria[address];
 	};
 	
-	void set_memory(endereco,word)
+	void set_memory(unsigned int address, unsigned int word)
 	{
-		memoria[endereco] = word;
+		memoria[address] = word;
 	};
 
 	void DumpMemoria()
 	{
-		for (int i = 0; i <=7; i++)
+		char srt[7];		
+		  		
+		for (int i = 0; i <= (MEMORYSIZE/8)-1; i++)		
 		{
-			printf("%d",i); 
+			int address = (i*8);
+			printf("%#010X",address); 
 			printf(": ");
 			
 			for (int j = 0; j <= 7; j++)
 			{
-				//(não dar print line feed, só espaço)
-				printf("%d", read_memory(j)) ; //convertendo string bits 
+				//srt = int2bin(read_memory((i*8)+j), );
+				//printf("%3d", read_memory((i*8)+j) ) ; //convertendo string bits 
+				address += j;
+				print_binary(read_memory(address));
 				printf(" ");
 			}
 		
@@ -122,13 +113,16 @@ void load_memory(char *file_name)
 			printf("\n");
 		}
 	};
+	
+	void print_binary(unsigned char value)
+	{
+		int bits_quantity = 7;		
+	    for (int i = sizeof(char) * bits_quantity; i >= 0; i--)
+	        printf("%d", (value & (1 << i)) >> i );	    
+	};
 
-	/*
-	Exemplo do Dump
-	0000: 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
-	0008: 11111111 11111111 11111111 11111111 11111111 11111111 11111111 11111111
-	*/
-	quit()
+	
+	void quit()
 	{
 		runbit = false;
 	};
