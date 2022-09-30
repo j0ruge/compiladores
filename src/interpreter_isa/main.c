@@ -3,51 +3,69 @@
 #include <stdbool.h>
 #include <locale.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+//#define NUMBERBASE 2;
 
-int main(int argc, char *argv[]) {
-	etlocale(LC_ALL, "Portuguese");
-	
-	
-	int pc = 0;
-	bool runbit = true;
-	int memoria[64];
-    inicializarmemoria();
-	
-	CarregaMemoria(nomearquivo.bin);
+int program_counter; // contador de programa contém endere
+int instruction; // um registrador para conter a instrução corrente
+bool runbit = true;
 
-	/*
-	conteudo do arquivo:
-	11111111
-	11111111
-	11111111
-	11111111
-	11111111
-	11111111
-	11111111
-	*/
+int CLR = 0b1000;// <-- limpa o valor do accumulator.
+int ADD = 0b0100;// <-- instrução soma A e B
+int HALT = 0b1100;// <-- instrução que desliga o processador
+//int operand_A;
+//int operand_B;
+//int operand_C;
+int memoria[64] = {0};
+ 
 
+//ADD Reg_A Reg_B
+int M1[] = 
+{
+    0b0100,
+    0b0110,
+    0b0111,
+    0b0111,
+    0b1111,
+    0b0000,
+    0b0100,
+    0b0011    
+};
+
+
+	
+
+int main(int argc, char *argv[]) {	
+	setlocale(LC_ALL, "Portuguese");
+		
+	program_counter = 0;
+	 	
+	load_memory("memory.bin");
+
+	
 	printf("Antes");
 	DumpMemoria();
 
-	while runbit
+	while (runbit)
 	{
 
-		inst = lermemoria(pc)
-
-		switch inst
+		instruction = read_memory(program_counter);		
+		
+		switch (instruction)
 		{
-
-			case 1:
-				add()
-			case 2:
-				sub()
-			case 255:
-				quit();
+			
+			case 0b0100: // ADD            
+	            add();            
+	            break;		
+			case 0b1100: //HALT
+	        	quit();
+	        	break;
 		}
-		pc++
-
+		
+		
+		
+		program_counter++;
 	}
+	
 	printf("Depois");
 	DumpMemoria();
 	return 0;
@@ -55,48 +73,53 @@ int main(int argc, char *argv[]) {
 
 
 
-
-	CarregarMemoria(nome arquivo);
-	{
-	
-		int contador = 0;
-		abre arquivo leitura (nome arquivo);
-	
-		while not eof
-		{
-			linha = fscanf (arquivo)
-			memoria[contador] = valorconvertido(linha)
-			contador++
+void load_memory(char *file_name)
+	{	
+		printf("Gabiru!");
+		int counter = 0;
+		FILE *file;
+		char *line; 
+		
+		file = fopen(file_name, "r");
+		if(file_name == NULL){
+			printf("File does not exist.");
 		}
 	
-		fechar arquivo;
+		while(fscanf(file,"%s",line) != EOF)
+		{
+			memoria[counter] = strtol(line, NULL, 2);
+			counter++;
+		}
+	
+		//fechar arquivo;
 	};
 
-	LerMemoria(endereco)
+	int read_memory(int address)
 	{
-		return memoria[endereco];
+		return memoria[address];
 	};
 	
-	SalvarMemoria(endereco,word)
+	void set_memory(endereco,word)
 	{
 		memoria[endereco] = word;
 	};
 
-	DumpMemoria()
+	void DumpMemoria()
 	{
-		for i = 0 to 7
+		for (int i = 0; i <=7; i++)
 		{
-			print i
-			print ": "
+			printf("%d",i); 
+			printf(": ");
 			
-			for j = 0 to 7
+			for (int j = 0; j <= 7; j++)
 			{
-				(não dar print line feed, só espaço)
-				print lermemoria(j) convertendo string bits 
-				print " "
+				//(não dar print line feed, só espaço)
+				printf("%d", read_memory(j)) ; //convertendo string bits 
+				printf(" ");
 			}
 		
-			print line feed printf("\n");
+			//print line feed 
+			printf("\n");
 		}
 	};
 
@@ -107,35 +130,32 @@ int main(int argc, char *argv[]) {
 	*/
 	quit()
 	{
-		runbit = false
+		runbit = false;
 	};
 	
-	add()
+	void add()
 	{
-		pc++
-		a = lermemoria(pc)
-		pc++
-		b = lermemoria(pc)
-		pc++
-		endc = lermemoria(pc)
+		program_counter++;
+		int operand_A = read_memory(program_counter);
+		program_counter++;
+		int operand_B = read_memory(program_counter);
+		program_counter++;
+		int memory_address = read_memory(program_counter);
 	
-		c = a + b
-		salvarmemoria(pc,c)
+		int operand_C = operand_A + operand_B;
+		set_memory(memory_address,operand_C);
 		};
 	
-	sub()
+	void sub()
 	{
-		pc++
-		a = lermemoria(pc)
-		pc++
-		b = lermemoria(pc)
-		pc++
-		endc = lermemoria(pc)
+		program_counter++;
+		int operand_A = read_memory(program_counter);
+		program_counter++;
+		int operand_B = read_memory(program_counter);
+		program_counter++;
+		int memory_address = read_memory(program_counter);
 	
-		c = a - b
-		salvamemoria(c)
-		
-		
-		
+		int operand_C = operand_A - operand_B;
+		set_memory(memory_address,operand_C);		
 	};
 
