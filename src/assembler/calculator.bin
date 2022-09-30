@@ -1,0 +1,4 @@
+00000100 ADD
+00000001 Operador A (ADD)
+00000011 Operador B	(ADD)
+01000000 Endereço do Resultado (ADD)

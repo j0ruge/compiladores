@@ -57,9 +57,9 @@ int main(int argc, char *argv[]) {
 		
 		
 		
-		char * first_parameter;
-		first_parameter = strtok(NULL, " "); 		
-		printf("%s\n", first_parameter);
+		//char * first_parameter;
+		//first_parameter = strtok(NULL, " "); 		
+	//	printf("%s\n", first_parameter);
 	}
 	fclose(file_in);		
 	fclose(file_out);
@@ -71,22 +71,93 @@ int main(int argc, char *argv[]) {
 
 void write_out(char *binary_code, char *comment)
 {
-	fprintf(file_out, "%s %s", binary_code, comment);		
+	fprintf(file_out, "%s %s\n", binary_code, comment);		
 }
 
 
 void add(){
-	write_out("00000100", "ADD");
+	write_out("00000100", "ADD");	
 	
 	char * first_parameter;
 	first_parameter = strtok(NULL, " "); 		
 	int p1 = atoi(first_parameter);
-	//char *temp_p1 = print_binary(p1);
-	char temp_p1[50];
-	print_binary(p1, *temp_p1);	
-	write_out(temp_p1, "Operador A (ADD)");	
+	file_print_binary(p1);
+	fprintf(file_out, " Operador A (ADD)\n");
+	
+	char * second_parameter;
+	second_parameter = strtok(NULL, " "); 		
+	int p2 = atoi(second_parameter);
+	file_print_binary(p2);
+	fprintf(file_out, " Operador B	(ADD)\n");
+		
+	char * third_parameter;
+	third_parameter = strtok(NULL, " "); 		
+	int p3 = atoi(third_parameter);
+	file_print_binary(p3);
+	fprintf(file_out, " Endereço do Resultado (ADD)\n");	
 }
 
+
+void file_print_binary(unsigned char value)
+{
+	int bits_quantity = 7;		
+    for (int i = sizeof(char) * bits_quantity; i >= 0; i--)
+        fprintf(file_out, "%d", (value & (1 << i)) >> i );	    
+};
+
+/*
+void add_v2(){
+	char * third_parameter;
+	third_parameter = strtok(NULL, " "); 		
+	int p3 = atoi(third_parameter);
+	char * gabiru;
+	decimal_to_binary(p3, &gabiru);
+	
+	
+	write_out(gabiru, " Endereço do Resultado (ADD)");
+}
+
+void decimal_to_binary(int n, char **p)
+{
+  int c, d, t;
+  //char *p;
+
+  t = 0;
+  *p = (char*)malloc(32+1);
+
+  if (*p == NULL)
+    exit(EXIT_FAILURE);
+
+  for (c = 31 ; c >= 0 ; c--)
+  {
+    d = n >> c;
+
+    if (d & 1)
+      *(*p+t) = 1 + '0';
+    else
+      *(*p+t) = 0 + '0';
+
+    t++;
+  }
+  *(*p+t) = '\0';
+
+  //return  p;
+}
+
+void print_binary(unsigned char value, char *temp_char){
+	int result[10];
+	for(int i=0; value >0;i++)    
+	{    
+		result[i]= value%2;    
+		value=value/2;		    
+	}
+};
+
+
+
+
+
+/*
 void print_binary(unsigned char value, char *temp_char)
 {
 	char result[10];
@@ -95,4 +166,4 @@ void print_binary(unsigned char value, char *temp_char)
         strcat(result, (value & (1 << i)) >> i );
     strcpy(temp_char, result);
 	return result;	    
-};
+};*/
