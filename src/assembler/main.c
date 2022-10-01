@@ -32,38 +32,16 @@ int main(int argc, char *argv[]) {
 	
 			 
 	while(fgets(line, 100, file_in) != NULL)
-	{
-		//char instruction[10];	
-			
+	{	
 		char *instruction = strtok(line, " ");		
-		printf("%s\n", instruction);
-				
-		if(strcmp(instruction, "ADD")==0) add();		
-		else if(strcmp(instruction, "SUB")==0)
-		{
-			printf("DENTRO SUB\n");
-		}		
-		else if(strcmp(instruction, "HALT")==0)
-		{
-			printf("DENTRO HALT\n");
-		}		
-		else if(strcmp(instruction, "JMP")==0)
-		{
-			printf("DENTRO\n");
-		}
-		else {
-			printf("Invalid instruction\n");
-		};
-		
-		
-		
-		//char * first_parameter;
-		//first_parameter = strtok(NULL, " "); 		
-	//	printf("%s\n", first_parameter);
+		printf("%s\n", instruction);				
+		if(strcmp(instruction, "ADD")==0) 		add_v2();		
+		else if(strcmp(instruction, "SUB")==0)	sub();			
+		else if(strcmp(instruction, "HALT")==0)	halt();	
+		else printf("Invalid instruction\n");
 	}
 	fclose(file_in);		
-	fclose(file_out);
-	
+	fclose(file_out);	
 	return 0;
 }
 
@@ -105,16 +83,44 @@ void file_print_binary(unsigned char value)
         fprintf(file_out, "%d", (value & (1 << i)) >> i );	    
 };
 
-/*
+
+void sub(){
+	write_out("00000101", "SUB");
+	char * to_binary;
+	
+	int p1 = atoi(strtok(NULL, " "));
+	decimal_to_binary(p1, &to_binary);	
+	write_out(to_binary, "Operador A (SUB)");	
+	
+	int p2 = atoi(strtok(NULL, " "));
+	decimal_to_binary(p2, &to_binary);	
+	write_out(to_binary, "Operador B (SUB)");
+	
+	int p3 = atoi(strtok(NULL, " "));
+	decimal_to_binary(p3, &to_binary);	
+	write_out(to_binary, "Endereço do Resultado (SUB)");
+}
+
+
 void add_v2(){
-	char * third_parameter;
-	third_parameter = strtok(NULL, " "); 		
-	int p3 = atoi(third_parameter);
-	char * gabiru;
-	decimal_to_binary(p3, &gabiru);
+	write_out("00000100", "ADD");
+	char * to_binary;
 	
+	int p1 = atoi(strtok(NULL, " "));
+	decimal_to_binary(p1, &to_binary);	
+	write_out(to_binary, "Operador A (ADD)");	
 	
-	write_out(gabiru, " Endereço do Resultado (ADD)");
+	int p2 = atoi(strtok(NULL, " "));
+	decimal_to_binary(p2, &to_binary);	
+	write_out(to_binary, "Operador B (ADD)");
+	
+	int p3 = atoi(strtok(NULL, " "));
+	decimal_to_binary(p3, &to_binary);	
+	write_out(to_binary, "Endereço do Resultado (ADD)");
+}
+
+void halt(){
+	write_out("00001100", "HALT");
 }
 
 void decimal_to_binary(int n, char **p)
@@ -128,7 +134,7 @@ void decimal_to_binary(int n, char **p)
   if (*p == NULL)
     exit(EXIT_FAILURE);
 
-  for (c = 31 ; c >= 0 ; c--)
+  for (c = 7 ; c >= 0 ; c--)
   {
     d = n >> c;
 
@@ -144,6 +150,7 @@ void decimal_to_binary(int n, char **p)
   //return  p;
 }
 
+/*
 void print_binary(unsigned char value, char *temp_char){
 	int result[10];
 	for(int i=0; value >0;i++)    

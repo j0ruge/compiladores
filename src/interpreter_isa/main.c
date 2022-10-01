@@ -18,11 +18,20 @@ int memoria[64] = {0};
 
 int main(int argc, char *argv[]) {	
 	setlocale(LC_ALL, "Portuguese");
+	
+	printf("Gabiruner 2.0\n");
+	printf("ChewieSoft inc.\n");
+	printf("Copyright 2022 - Compiladores\n\n");
+	
+	char file_name_in[100];
+	strcpy(file_name_in, argv[1]);
+	strcat(file_name_in,".bin");
+	printf("Running file %s\n\n", file_name_in);
 		
 	program_counter = 0;
 	 	
 	//load_memory("memory.bin");
-	load_memory(argv[1]);
+	load_memory(file_name_in);
 	
 	printf("\nAntes\n");
 	DumpMemoria();
@@ -33,8 +42,7 @@ int main(int argc, char *argv[]) {
 		instruction = read_memory(program_counter);		
 		
 		switch (instruction)
-		{
-			
+		{			
 			case 0b0100: // ADD            
 	            add();            
 	            break;		
@@ -72,9 +80,12 @@ void load_memory(char *file_name)
 			printf("Memory file does not exist.");
 			exit(0);
 		}		 
-		while( fscanf(file,"%s",line) != EOF)
+		//while( fscanf(file,"%s",line) != EOF)
+		while(fgets(line, 100, file) != NULL)
 		{
-			memoria[counter] = strtol(line, NULL, 2);
+			char *instruction = strtok(line, " ");				
+			memoria[counter] = strtol(instruction, NULL, 2);
+			printf("%s %d\n", instruction, counter);
 			counter++;
 		}
 		fclose(file);		
@@ -96,15 +107,15 @@ void load_memory(char *file_name)
 		  		
 		for (int i = 0; i <= (MEMORYSIZE/8)-1; i++)		
 		{
-			int address = (i*8);
-			printf("%#010X",address); 
+			int base_address = (i*8);
+			printf("%#010X", base_address); 
 			printf(": ");
 			
 			for (int j = 0; j <= 7; j++)
 			{
 				//srt = int2bin(read_memory((i*8)+j), );
 				//printf("%3d", read_memory((i*8)+j) ) ; //convertendo string bits 
-				address += j;
+				int address = base_address + j;
 				print_binary(read_memory(address));
 				printf(" ");
 			}
