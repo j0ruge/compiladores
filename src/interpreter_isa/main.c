@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 	printf("  |      Welcome to Gabirunner 2.0 ®                             |  \n");
 	printf("  |      By 3L ChewieSoft Inc. ™                                 |  \n");
 	printf("  |      Copyright 2022 - Compiladores                           |  \n");
-	printf("  |      Powered by Prof. Miguel Angelo Zaccur de Figueiredo     |  \n");
+	printf("  |      Powered by Prof. Miguel Ângelo Zaccur de Figueiredo     |  \n");
 	printf("  |                                                              |  \n");
 	printf(" -================================================================- \n");
 	printf("\n");
