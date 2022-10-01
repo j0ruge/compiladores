@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <locale.h>
 
-
 static int MEMORYSIZE = 64;
 int program_counter; // contador de programa contém endere
 int instruction; // um registrador para conter a instrução corrente
@@ -192,7 +191,7 @@ void load_memory(char *file_name)
 		program_counter++;
 		int operand_A = read_memory(program_counter);
 		operand_A++;
-		int memory_address = read_memory(program_counter);
+		int memory_address = program_counter;
 		set_memory(memory_address,operand_A);
 	}
 
