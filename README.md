@@ -42,3 +42,12 @@ Running file memory.bin
 --------------------------------
 
 ```
+
+## Operações disponíveis
+
+MNEMONIC|OPCODES|DECRIPTION
+|-------|-------|----------|
+ADD|1000|Instrução soma A e B
+SUB|0101|Instrução subtração A e B
+INCA|0110|Instrução para incremento de A
+HALT|1100|Instrução que desliga o processador
