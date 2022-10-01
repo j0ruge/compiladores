@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 	printf(" -=======================================- \n");
 	printf("  |                                     |  \n");
 	printf("  |      Gabirunner 2.0  ®              |  \n");
-	printf("  |      ChewieSoft inc. ™              |  \n");
+	printf("  |      ChewieSoft Inc. ™              |  \n");
 	printf("  |      Copyright 2022 - Compiladores  |  \n");
 	printf("  |                                     |  \n");
 	printf(" -=======================================- \n");
