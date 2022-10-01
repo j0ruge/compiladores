@@ -3,9 +3,25 @@
 00000111 Operador B	(ADD)
 00111111 Endereço do Resultado (ADD)
 00000101 SUB
-00001010
-00000101
-00111110
+00001010 Operador A (SUB)
+00000101 Operador B	(SUB)
+00111110 Endereço do Resultado (SUB)
 00000110 INCA
 00000000 Operador A (INCA) | Endereço do Resultado (INCA)
+00000111 SLT
+00000001 Operador A (SLT)
+00000010 Operador B	(SLT)
+00111101 Endereço do Resultado (SLT)
+00000000 ADD
+00000111 Operador A (ADD)
+00001011 Operador B	(ADD)
+00111100 Endereço do Resultado (ADD)
+00000001 OR
+00000101 Operador A (OR)
+00001001 Operador B	(OR)
+00111011 Endereço do Resultado (OR)
+00000010 XOR
+00000101 Operador A (XOR)
+00001001 Operador B	(XOR)
+00111010 Endereço do Resultado (XOR)
 00001100 HALT
