@@ -19,21 +19,29 @@ int memoria[64] = {0};
 int main(int argc, char *argv[]) {	
 	setlocale(LC_ALL, "Portuguese");
 	
-	printf("Gabiruner 2.0\n");
-	printf("ChewieSoft inc.\n");
-	printf("Copyright 2022 - Compiladores\n\n");
-	
+	printf(" -=======================================- \n");
+	printf("  |                                     |  \n");
+	printf("  |      Gabirunner 2.0  ®              |  \n");
+	printf("  |      ChewieSoft inc. ™              |  \n");
+	printf("  |      Copyright 2022 - Compiladores  |  \n");
+	printf("  |                                     |  \n");
+	printf(" -=======================================- \n");
+	printf("\n");
+	printf("                          BEFORE EXECUTION - MEMORY DUMP\n");
+	printf("-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-\n");
+	printf("\n");
 	char file_name_in[100];
 	strcpy(file_name_in, argv[1]);
 	strcat(file_name_in,".bin");
-	printf("Running file %s\n\n", file_name_in);
+	printf("Running file %s\n", file_name_in);
+	printf("\n");
 		
 	program_counter = 0;
 	 	
 	//load_memory("memory.bin");
 	load_memory(file_name_in);
 	
-	printf("\nAntes\n");
+	
 	DumpMemoria();
 
 	while (runbit)
@@ -60,11 +68,13 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	
-	printf("\nDepois\n");
+	printf("\n");
+	printf("                          AFTER EXECUTION - MEMORY DUMP\n");
+	printf("-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-\n");
+	printf("\n");
 	DumpMemoria();
 	return 0;
 };
-
 
 
 void load_memory(char *file_name)
@@ -85,7 +95,7 @@ void load_memory(char *file_name)
 		{
 			char *instruction = strtok(line, " ");				
 			memoria[counter] = strtol(instruction, NULL, 2);
-			printf("%s %d\n", instruction, counter);
+			//printf("%s %d\n", instruction, counter);
 			counter++;
 		}
 		fclose(file);		
@@ -113,14 +123,10 @@ void load_memory(char *file_name)
 			
 			for (int j = 0; j <= 7; j++)
 			{
-				//srt = int2bin(read_memory((i*8)+j), );
-				//printf("%3d", read_memory((i*8)+j) ) ; //convertendo string bits 
 				int address = base_address + j;
 				print_binary(read_memory(address));
 				printf(" ");
-			}
-		
-			//print line feed 
+			}		
 			printf("\n");
 		}
 	};
