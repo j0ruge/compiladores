@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 	
 	char file_name_out[VARCHAR];	
 	strcpy(file_name_out, argv[FIRST_ARGUMENT]);
-	strcat(file_name_out,".bin");	
+	strcat(file_name_out,".bin");		
 		
 	char line[VARCHAR]; 		
 	file_in = fopen(file_name_in, "r");		
@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
 	if(file_out == NULL){
 		printf("Output file does not exist.");
 		exit(EXIT_SUCCESS);
-	}	
-			 
+	}		 
+	
 	while(fgets(line, VARCHAR, file_in) != NULL)
 	{	
 		char *instruction = strtok(line, " ");				

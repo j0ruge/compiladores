@@ -9,7 +9,7 @@
 #define ABORT 1
 #define ONE_ARGUMENT 1
 #define GARBAGE_COLLECTOR 0
-#define VARCHAR_100 100
+#define VARCHAR 100
 #define FIRST_ARGUMENT 1
 #define END 0
 
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 	printf("                          BEFORE EXECUTION - MEMORY DUMP\n");
 	printf("-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-\n");
 	printf("\n");	
-	char file_name_in[VARCHAR_100];
+	char file_name_in[VARCHAR];
 	strcpy(file_name_in, argv[FIRST_ARGUMENT]);
 	strcat(file_name_in,".bin");
 	printf("Running file %s\n", file_name_in);
@@ -66,10 +66,9 @@ int main(int argc, char *argv[]) {
 	* Via Dev-C++, a configuração do nome de arquivo deve ser apontada via menu Execute -> Parameters... 
 	* colocando como parametro a ser passado o nome do arquivo, no nosso caso, "memory" (sem as aspas).	
 	*/
-	load_memory(file_name_in); 
+	load_memory(file_name_in); 	
 	
-	
-	DumpMemoria();
+	memory_dump();
 
 	while (runbit)
 	{
@@ -109,16 +108,15 @@ int main(int argc, char *argv[]) {
 	printf("                          AFTER EXECUTION - MEMORY DUMP\n");
 	printf("-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-\n");
 	printf("\n");
-	DumpMemoria();
-	return END;
+	memory_dump();
+	return EXIT_SUCCESS;
 }
-
 
 void load_memory(char *file_name)
 {	
 	int counter = 0;
 	FILE *file;
-	char line[VARCHAR_100]; 
+	char line[VARCHAR]; 
 	
 	file = fopen(file_name, "r");
 	
@@ -127,12 +125,10 @@ void load_memory(char *file_name)
 		printf("Memory file does not exist.");
 		exit(END);
 	}		 
-	//while( fscanf(file,"%s",line) != EOF)
 	while(fgets(line, 100, file) != NULL)
 	{
 		char *instruction = strtok(line, " ");				
-		memoria[counter] = strtol(instruction, NULL, 2);
-		//printf("%s %d\n", instruction, counter);
+		memoria[counter] = strtol(instruction, NULL, 2);		
 		counter++;
 	}
 	fclose(file);		
@@ -148,7 +144,7 @@ void set_memory(unsigned int address, unsigned int word)
 	memoria[address] = word;
 }
 
-void DumpMemoria()
+void memory_dump()
 {
 	char srt[7];		
 	  		
