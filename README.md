@@ -54,5 +54,5 @@ XOR|0010|Instrução A XOR B.
 ADD|1000|Instrução soma A e B
 SUB|0101|Instrução subtração A e B
 INC|0110|Instrução para incremento de X
-SLT|0110|Instrução A menor que B? (SLT - Set on Less Than).
+SLT|0111|Instrução A menor que B? (SLT - Set on Less Than).
 HALT|1100|Instrução que desliga o processador
