@@ -6,8 +6,8 @@
 00001010 Operador A (SUB)
 00000101 Operador B	(SUB)
 00111110 Endereço do Resultado (SUB)
-00000110 INCA
-00000000 Operador A (INCA) | Endereço do Resultado (INCA)
+00000110 INC
+00000000 Operador A (INC) | Endereço do Resultado (INC)
 00000111 SLT
 00000001 Operador A (SLT)
 00000010 Operador B	(SLT)

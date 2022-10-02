@@ -38,12 +38,13 @@ int main(int argc, char *argv[]) {
 		else if(strcmp(instruction, "XOR")==SUCCESSFUL_COMPARISON) 	instruction_xor();
 		else if(strcmp(instruction, "ADD")==SUCCESSFUL_COMPARISON) 	instruction_add_v2();		
 		else if(strcmp(instruction, "SUB")==SUCCESSFUL_COMPARISON)	instruction_sub();
-		else if(strcmp(instruction, "INCA")==SUCCESSFUL_COMPARISON) instruction_inca();
+		else if(strcmp(instruction, "INC")==SUCCESSFUL_COMPARISON) instruction_inc();
 		else if(strcmp(instruction, "SLT")==SUCCESSFUL_COMPARISON) 	instruction_slt();		
 		else if(strcmp(instruction, "HALT")==SUCCESSFUL_COMPARISON)	instruction_halt();	
 		else printf("Invalid instruction\n");
-	}
-	fclose(file_in);		
+	}	
+	fclose(file_in);
+	printf("Output file: %s\n", file_name_out);	
 	fclose(file_out);	
 	return EXIT_SUCCESS;
 }
@@ -185,12 +186,12 @@ void instruction_add_v2(){
 }
 
 
-void instruction_inca(){
-	write_out("00000110", "INCA");	
+void instruction_inc(){
+	write_out("00000110", "INC");	
 	char * to_binary;		
 	int p1 = atoi(strtok(NULL, " "));
 	int_to_binary(p1, &to_binary);	
-	write_out(to_binary, "Operador A (INCA) | Endereço do Resultado (INCA)");
+	write_out(to_binary, "Operador A (INC) | Endereço do Resultado (INC)");
 } 
 
 void instruction_slt(){

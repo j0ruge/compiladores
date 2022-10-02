@@ -1,2 +1,2 @@
-INCA 2
+INC 2
 HALT

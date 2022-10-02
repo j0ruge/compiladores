@@ -11,7 +11,6 @@
 #define GARBAGE_COLLECTOR 0
 #define VARCHAR 100
 #define FIRST_ARGUMENT 1
-#define END 0
 
 int program_counter; // contador de programa contém endereços de memória.
 int instruction; // um registrador para conter a instrução corrente.
@@ -29,7 +28,7 @@ int OR = 	0b0001; // <-- Instrução A OR B.
 int XOR =	0b0010; // <-- Instrução A XOR B.
 int ADD = 	0b0100; // <-- Instrução soma A e B.
 int SUB = 	0b0101; // <-- Instrução subtração A e B.
-int INCA = 	0b0110; // <-- Instrução para incremento de A (INCA - Increment A).
+int INC = 	0b0110; // <-- Instrução para incremento de X (INCA - Increment).
 int SLT =	0b0111; // <-- Instrução A menor que B? (SLT - Set on Less Than).
 int HALT = 	0b1100; // <-- Instrução que desliga o processador.
 int memoria[MEMORYSIZE] = {GARBAGE_COLLECTOR}; 
@@ -54,7 +53,8 @@ int main(int argc, char *argv[]) {
 	
 	printf("                          BEFORE EXECUTION - MEMORY DUMP\n");
 	printf("-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-_-=-\n");
-	printf("\n");	
+	printf("\n");
+		
 	char file_name_in[VARCHAR];
 	strcpy(file_name_in, argv[FIRST_ARGUMENT]);
 	strcat(file_name_in,".bin");
@@ -90,8 +90,8 @@ int main(int argc, char *argv[]) {
 	        case 0b0101: // SUB            
 	            instruction_sub();            
 	            break;
-	        case 0b0110: // INCA - Increment A           
-	            instruction_inca();            
+	        case 0b0110: // INC - Increment X           
+	            instruction_inc();            
 	            break;
 			case 0b0111: // SLT - Set on Less Than (A < B?) 
 				instruction_slt();
@@ -116,14 +116,12 @@ void load_memory(char *file_name)
 {	
 	int counter = 0;
 	FILE *file;
-	char line[VARCHAR]; 
+	char line[VARCHAR];
 	
-	file = fopen(file_name, "r");
-	
-	
+	file = fopen(file_name, "r");	
 	if(file == NULL){
 		printf("Memory file does not exist.");
-		exit(END);
+		exit(EXIT_SUCCESS);
 	}		 
 	while(fgets(line, 100, file) != NULL)
 	{
@@ -152,8 +150,7 @@ void memory_dump()
 	{
 		int base_address = (i*8);
 		printf("%#010X", base_address); 
-		printf(": ");
-		
+		printf(": ");		
 		for (int j = 0; j <= 7; j++)
 		{
 			int address = base_address + j;
@@ -185,7 +182,6 @@ void instruction_add()
 	int operand_B = read_memory(program_counter);
 	program_counter++;
 	int memory_address = read_memory(program_counter);
-
 	int operand_C = operand_A + operand_B;
 	set_memory(memory_address,operand_C);
 }
@@ -198,12 +194,11 @@ void instruction_sub()
 	int operand_B = read_memory(program_counter);
 	program_counter++;
 	int memory_address = read_memory(program_counter);
-
 	int operand_C = operand_A - operand_B;
 	set_memory(memory_address,operand_C);		
 }
 	
-void instruction_inca(){
+void instruction_inc(){
 	program_counter++;
 	int operand_A = read_memory(program_counter);
 	operand_A++;
@@ -218,7 +213,6 @@ void instruction_slt(){
 	int operand_B = read_memory(program_counter);
 	program_counter++;
 	int memory_address = read_memory(program_counter);
-
 	int operand_C = operand_A - operand_B;
 	if(operand_C <= 0){
 		operand_C = YES;
@@ -228,7 +222,6 @@ void instruction_slt(){
 	set_memory(memory_address,operand_C);		
 }
 
-
 void instruction_and(){
 	program_counter++;
 	unsigned char operand_A = read_memory(program_counter);
@@ -236,7 +229,6 @@ void instruction_and(){
 	unsigned char operand_B = read_memory(program_counter);
 	program_counter++;
 	int memory_address = read_memory(program_counter);
-
 	unsigned char operand_C = operand_A & operand_B;
 	set_memory(memory_address,operand_C);	
 }
@@ -248,7 +240,6 @@ void instruction_or(){
 	unsigned char operand_B = read_memory(program_counter);
 	program_counter++;
 	int memory_address = read_memory(program_counter);
-
 	unsigned char operand_C = operand_A | operand_B;
 	set_memory(memory_address,operand_C);
 }
@@ -260,7 +251,6 @@ void instruction_xor(){
 	unsigned char operand_B = read_memory(program_counter);
 	program_counter++;
 	int memory_address = read_memory(program_counter);
-
 	unsigned char operand_C = operand_A ^ operand_B;
 	set_memory(memory_address,operand_C);
 }
