@@ -3,7 +3,7 @@
 Trabalhos realizados durantre o período de Compiladores da Universidade Veiga de Almeida para professor Miguel Ângelo
 
 
-### Exemplo de saída do Interpretador ISA, vulgo *Gabirunner 2.0 ®*  
+### Exemplo de saída do Interpretador ISA, vulgo 🐀 *Gabirunner 2.0 ®*  
 
 ```
  -================================================================-
