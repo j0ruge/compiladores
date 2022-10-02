@@ -4,7 +4,6 @@
 
 #define VARCHAR 100
 #define FIRST_ARGUMENT 1
-#define SUCCESSFUL_COMPARISON 0
 
 FILE *file_in, *file_out;
 
@@ -32,15 +31,15 @@ int main(int argc, char *argv[]) {
 			 
 	while(fgets(line, VARCHAR, file_in) != NULL)
 	{	
-		char *instruction = strtok(line, " ");				
-		if((strcmp(instruction, 	"AND")==SUCCESSFUL_COMPARISON))	instruction_and();
-		else if(strcmp(instruction, "OR")==SUCCESSFUL_COMPARISON) 	instruction_or();
-		else if(strcmp(instruction, "XOR")==SUCCESSFUL_COMPARISON) 	instruction_xor();
-		else if(strcmp(instruction, "ADD")==SUCCESSFUL_COMPARISON) 	instruction_add_v2();		
-		else if(strcmp(instruction, "SUB")==SUCCESSFUL_COMPARISON)	instruction_sub();
-		else if(strcmp(instruction, "INCA")==SUCCESSFUL_COMPARISON) instruction_inca();
-		else if(strcmp(instruction, "SLT")==SUCCESSFUL_COMPARISON) 	instruction_slt();		
-		else if(strcmp(instruction, "HALT")==SUCCESSFUL_COMPARISON)	instruction_halt();	
+		char *instruction = strtok(line, " ");		
+		if((strcmp(instruction, 	"AND")==0))	instruction_and();
+		else if(strcmp(instruction, "OR")==0) 	instruction_or();
+		else if(strcmp(instruction, "XOR")==0) 	instruction_xor();
+		else if(strcmp(instruction, "ADD")==0) 	instruction_add_v2();		
+		else if(strcmp(instruction, "SUB")==0)	instruction_sub();
+		else if(strcmp(instruction, "INCA")==0) instruction_inca();
+		else if(strcmp(instruction, "SLT")==0) 	instruction_slt();		
+		else if(strcmp(instruction, "HALT")==0)	instruction_halt();	
 		else printf("Invalid instruction\n");
 	}
 	fclose(file_in);		
@@ -72,7 +71,7 @@ void instruction_and(){
 	third_parameter = strtok(NULL, " "); 		
 	int p3 = atoi(third_parameter);
 	file_print_binary(p3);
-	fprintf(file_out, " Endereço do Resultado (AND)\n");
+	fprintf(file_out, " EndereÃ§o do Resultado (AND)\n");
 }
 
 void instruction_or(){
@@ -94,7 +93,7 @@ void instruction_or(){
 	third_parameter = strtok(NULL, " "); 		
 	int p3 = atoi(third_parameter);
 	file_print_binary(p3);
-	fprintf(file_out, " Endereço do Resultado (OR)\n");
+	fprintf(file_out, " EndereÃ§o do Resultado (OR)\n");
 }
 
 void instruction_xor(){
@@ -116,7 +115,7 @@ void instruction_xor(){
 	third_parameter = strtok(NULL, " "); 		
 	int p3 = atoi(third_parameter);
 	file_print_binary(p3);
-	fprintf(file_out, " Endereço do Resultado (XOR)\n");
+	fprintf(file_out, " EndereÃ§o do Resultado (XOR)\n");
 };
 
 void instruction_add(){
@@ -138,7 +137,7 @@ void instruction_add(){
 	third_parameter = strtok(NULL, " "); 		
 	int p3 = atoi(third_parameter);
 	file_print_binary(p3);
-	fprintf(file_out, " Endereço do Resultado (ADD)\n");	
+	fprintf(file_out, " EndereÃ§o do Resultado (ADD)\n");	
 }
 
 void file_print_binary(unsigned char value)
@@ -163,7 +162,7 @@ void instruction_sub(){
 	
 	int p3 = atoi(strtok(NULL, " "));
 	int_to_binary(p3, &to_binary);	
-	write_out(to_binary, "Endereço do Resultado (SUB)");
+	write_out(to_binary, "EndereÃ§o do Resultado (SUB)");
 }
 
 
@@ -181,7 +180,7 @@ void instruction_add_v2(){
 	
 	int p3 = atoi(strtok(NULL, " "));
 	int_to_binary(p3, &to_binary);	
-	write_out(to_binary, "Endereço do Resultado (ADD)");
+	write_out(to_binary, "EndereÃ§o do Resultado (ADD)");
 }
 
 
@@ -190,7 +189,7 @@ void instruction_inca(){
 	char * to_binary;		
 	int p1 = atoi(strtok(NULL, " "));
 	int_to_binary(p1, &to_binary);	
-	write_out(to_binary, "Operador A (INCA) | Endereço do Resultado (INCA)");
+	write_out(to_binary, "Operador A (INCA) | EndereÃ§o do Resultado (INCA)");
 } 
 
 void instruction_slt(){
@@ -207,7 +206,7 @@ void instruction_slt(){
 	
 	int p3 = atoi(strtok(NULL, " "));
 	int_to_binary(p3, &to_binary);	
-	write_out(to_binary, "Endereço do Resultado (SLT)");
+	write_out(to_binary, "EndereÃ§o do Resultado (SLT)");
 }
 
 void instruction_halt(){
@@ -217,11 +216,9 @@ void instruction_halt(){
 void int_to_binary(int value_to_convert, char **binary_string_output)
 {
   int bit_position_counter, extracted_single_bit, output_bit_position;  
-  int bits_quantity = 8;
-  int string_termination = 1;
-  
+
   output_bit_position = 0;
-  *binary_string_output = (char*)malloc(bits_quantity + string_termination);
+  *binary_string_output = (char*)malloc(32+1);
 
   if (*binary_string_output == NULL) exit(EXIT_FAILURE);
 

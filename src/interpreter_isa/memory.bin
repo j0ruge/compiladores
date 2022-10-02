@@ -12,10 +12,10 @@
 00000001 Operador A (SLT)
 00000010 Operador B	(SLT)
 00111101 Endereço do Resultado (SLT)
-00000000 ADD
-00000111 Operador A (ADD)
-00001011 Operador B	(ADD)
-00111100 Endereço do Resultado (ADD)
+00000000 AND
+00000111 Operador A (AND)
+00001011 Operador B	(AND)
+00111100 Endereço do Resultado (AND)
 00000001 OR
 00000101 Operador A (OR)
 00001001 Operador B	(OR)
