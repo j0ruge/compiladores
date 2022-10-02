@@ -1,3 +1,27 @@
+00000000 AND
+00000111 Operador A (AND)
+00001011 Operador B	(AND)
+00111111 Endereço do Resultado (AND)
+00000001 OR
+00000101 Operador A (OR)
+00001001 Operador B	(OR)
+00111110 Endereço do Resultado (OR)
+00000010 XOR
+00000101 Operador A (XOR)
+00001001 Operador B	(XOR)
+00111101 Endereço do Resultado (XOR)
+00000100 ADD
+00000101 Operador A (ADD)
+00000111 Operador B (ADD)
+00111100 Endereço do Resultado (ADD)
+00000101 SUB
+00001010 Operador A (SUB)
+00000101 Operador B (SUB)
+00111011 Endereço do Resultado (SUB)
 00000110 INC
-00000010 Operador A (INC) | Endereço do Resultado (INC)
+00010011 Operador A (INC) | Endereço do Resultado (INC)
+00000111 SLT
+00000001 Operador A (SLT)
+00000010 Operador B (SLT)
+00111010 Endereço do Resultado (SLT)
 00001100 HALT

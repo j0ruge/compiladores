@@ -11,6 +11,7 @@
 #define GARBAGE_COLLECTOR 0
 #define VARCHAR 100
 #define FIRST_ARGUMENT 1
+#define MEMORY_CELL_SIZE 8
 
 int program_counter; // contador de programa contém endereços de memória.
 int instruction; // um registrador para conter a instrução corrente.
@@ -143,12 +144,10 @@ void set_memory(unsigned int address, unsigned int word)
 }
 
 void memory_dump()
-{
-	char srt[7];		
-	  		
-	for (int i = 0; i <= (MEMORYSIZE/8)-1; i++)		
+{	  		
+	for (int i = 0; i <= (MEMORYSIZE/MEMORY_CELL_SIZE)-1; i++)		
 	{
-		int base_address = (i*8);
+		int base_address = (i*MEMORY_CELL_SIZE);
 		printf("%#010X", base_address); 
 		printf(": ");		
 		for (int j = 0; j <= 7; j++)
