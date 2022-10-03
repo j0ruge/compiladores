@@ -13,36 +13,52 @@
 #define FIRST_ARGUMENT 1
 #define MEMORY_CELL_SIZE 8
 
-int program_counter; // contador de programa contÈm endereÁos de memÛria.
-int instruction; // um registrador para conter a instruÁ„o corrente.
+int program_counter; // contador de programa cont√©m endere√ßos de mem√≥ria.
+int instruction; // um registrador para conter a instru√ß√£o corrente.
 bool runbit = true;
 
 /*
 *
 * NOTA: A ser implementada esta funcionalidade do CLR. 
-* Nesta vers„o ainda n„o fazemos uso de FLAG REGISTERS nem do ACCUMULATOR
+* Nesta vers√£o ainda n√£o fazemos uso de FLAG REGISTERS nem do ACCUMULATOR
 *
 */
 int CLR = 	0b1000; // <-- limpa o valor do accumulator. 
-int AND = 	0b0000; // <-- InstruÁ„o A AND B.
-int OR = 	0b0001; // <-- InstruÁ„o A OR B.
-int XOR =	0b0010; // <-- InstruÁ„o A XOR B.
-int ADD = 	0b0100; // <-- InstruÁ„o soma A e B.
-int SUB = 	0b0101; // <-- InstruÁ„o subtraÁ„o A e B.
-int INC = 	0b0110; // <-- InstruÁ„o para incremento de X (INCA - Increment).
-int SLT =	0b0111; // <-- InstruÁ„o A menor que B? (SLT - Set on Less Than).
-int HALT = 	0b1100; // <-- InstruÁ„o que desliga o processador.
+int AND = 	0b0000; // <-- Instru√ß√£o A AND B.
+int OR = 	0b0001; // <-- Instru√ß√£o A OR B.
+int XOR =	0b0010; // <-- Instru√ß√£o A XOR B.
+int ADD = 	0b0100; // <-- Instru√ß√£o soma A e B.
+int SUB = 	0b0101; // <-- Instru√ß√£o subtra√ß√£o A e B.
+int INC = 	0b0110; // <-- Instru√ß√£o para incremento de X (INCA - Increment).
+int SLT =	0b0111; // <-- Instru√ß√£o A menor que B? (SLT - Set on Less Than).
+int HALT = 	0b1100; // <-- Instru√ß√£o que desliga o processador.
 int memoria[MEMORYSIZE] = {GARBAGE_COLLECTOR}; 
+
+// Interfaces
+void memory_dump();
+void load_memory(char *file_name);
+void print_binary(unsigned char value);
+int read_memory(int address);
+void set_memory(unsigned int address, unsigned int word);
+void instruction_and();
+void instruction_or();
+void instruction_xor();
+void instruction_sub();
+void instruction_add();
+void instruction_inc();
+void instruction_slt();
+void instruction_quit();
+
 
 int main(int argc, char *argv[]) {	
 	setlocale(LC_ALL, "Portuguese");
 	
 	printf(" -================================================================- \n");
 	printf("  |                                                              |  \n");
-	printf("  |      Welcome to Gabirunner 2.0 Æ                             |  \n");
-	printf("  |      By 3L ChewieSoft Inc. ô                                 |  \n");
+	printf("  |      Welcome to Gabirunner 2.0 ¬Æ                             |  \n");
+	printf("  |      By 3L ChewieSoft Inc. ‚Ñ¢                                 |  \n");
 	printf("  |      Copyright 2022 - Compiladores                           |  \n");
-	printf("  |      Powered by Prof. Miguel ¬ngelo Zaccur de Figueiredo     |  \n");
+	printf("  |      Powered by Prof. Miguel √Çngelo Zaccur de Figueiredo     |  \n");
 	printf("  |                                                              |  \n");
 	printf(" -================================================================- \n");
 	printf("\n");
@@ -64,7 +80,7 @@ int main(int argc, char *argv[]) {
 	program_counter = 0;	 	
 		
 	/*
-	* Via Dev-C++, a configuraÁ„o do nome de arquivo deve ser apontada via menu Execute -> Parameters... 
+	* Via Dev-C++, a configura√ß√£o do nome de arquivo deve ser apontada via menu Execute -> Parameters... 
 	* colocando como parametro a ser passado o nome do arquivo, no nosso caso, "memory" (sem as aspas).	
 	*/
 	load_memory(file_name_in); 	
