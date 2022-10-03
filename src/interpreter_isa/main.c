@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <locale.h>
+#include <string.h>
+#include "instructions.h"
+#include "memory.h"
 
-#define YES 1
-#define NO 0
 #define MEMORYSIZE 64
 #define ABORT 1
 #define ONE_ARGUMENT 1
-#define GARBAGE_COLLECTOR 0
 #define VARCHAR 100
 #define FIRST_ARGUMENT 1
-#define MEMORY_CELL_SIZE 8
 
-int program_counter; // contador de programa contém endereços de memória.
 int instruction; // um registrador para conter a instrução corrente.
+int program_counter; // contador de programa contém endereços de memória.
+
 bool runbit = true;
 
 /*
@@ -32,26 +32,16 @@ int SUB = 	0b0101; // <-- Instrução subtração A e B.
 int INC = 	0b0110; // <-- Instrução para incremento de X (INCA - Increment).
 int SLT =	0b0111; // <-- Instrução A menor que B? (SLT - Set on Less Than).
 int HALT = 	0b1100; // <-- Instrução que desliga o processador.
-int memoria[MEMORYSIZE] = {GARBAGE_COLLECTOR}; 
 
-// Interfaces
-void memory_dump();
-void load_memory(char *file_name);
-void print_binary(unsigned char value);
-int read_memory(int address);
-void set_memory(unsigned int address, unsigned int word);
-void instruction_and();
-void instruction_or();
-void instruction_xor();
-void instruction_sub();
-void instruction_add();
-void instruction_inc();
-void instruction_slt();
-void instruction_quit();
+
+void instruction_quit()
+{
+	runbit = false;
+}
 
 
 int main(int argc, char *argv[]) {	
-	setlocale(LC_ALL, "Portuguese");
+	setlocale(LC_ALL, "pt_BR.UTF-8");
 	
 	printf(" -================================================================- \n");
 	printf("  |                                                              |  \n");
@@ -129,144 +119,10 @@ int main(int argc, char *argv[]) {
 	return EXIT_SUCCESS;
 }
 
-void load_memory(char *file_name)
-{	
-	int counter = 0;
-	FILE *file;
-	char line[VARCHAR];
-	
-	file = fopen(file_name, "r");	
-	if(file == NULL){
-		printf("Memory file does not exist.");
-		exit(EXIT_SUCCESS);
-	}		 
-	while(fgets(line, 100, file) != NULL)
-	{
-		char *instruction = strtok(line, " ");				
-		memoria[counter] = strtol(instruction, NULL, 2);		
-		counter++;
-	}
-	fclose(file);		
-}
-
-int read_memory(int address)
-{
-	return memoria[address];
-}
-	
-void set_memory(unsigned int address, unsigned int word)
-{
-	memoria[address] = word;
-}
-
-void memory_dump()
-{	  		
-	for (int i = 0; i <= (MEMORYSIZE/MEMORY_CELL_SIZE)-1; i++)		
-	{
-		int base_address = (i*MEMORY_CELL_SIZE);
-		printf("%#010X", base_address); 
-		printf(": ");		
-		for (int j = 0; j <= 7; j++)
-		{
-			int address = base_address + j;
-			print_binary(read_memory(address));
-			printf(" ");
-		}		
-		printf("\n");
-	}
-}
-	
-void print_binary(unsigned char value)
-{
-	int bits_quantity = 7;		
-    for (int i = sizeof(char) * bits_quantity; i >= 0; i--)
-        printf("%d", (value & (1 << i)) >> i );	    
-}
 
 
-void instruction_quit()
-{
-	runbit = false;
-}
-	
-void instruction_add()
-{
-	program_counter++;
-	int operand_A = read_memory(program_counter);
-	program_counter++;
-	int operand_B = read_memory(program_counter);
-	program_counter++;
-	int memory_address = read_memory(program_counter);
-	int operand_C = operand_A + operand_B;
-	set_memory(memory_address,operand_C);
-}
-	
-void instruction_sub()
-{
-	program_counter++;
-	int operand_A = read_memory(program_counter);
-	program_counter++;
-	int operand_B = read_memory(program_counter);
-	program_counter++;
-	int memory_address = read_memory(program_counter);
-	int operand_C = operand_A - operand_B;
-	set_memory(memory_address,operand_C);		
-}
-	
-void instruction_inc(){
-	program_counter++;
-	int operand_A = read_memory(program_counter);
-	operand_A++;
-	int memory_address = program_counter;
-	set_memory(memory_address,operand_A);
-}
-	
-void instruction_slt(){
-	program_counter++;
-	int operand_A = read_memory(program_counter);
-	program_counter++;
-	int operand_B = read_memory(program_counter);
-	program_counter++;
-	int memory_address = read_memory(program_counter);
-	int operand_C = operand_A - operand_B;
-	if(operand_C <= 0){
-		operand_C = YES;
-	} else {
-		operand_C = NO;
-	}		
-	set_memory(memory_address,operand_C);		
-}
 
-void instruction_and(){
-	program_counter++;
-	unsigned char operand_A = read_memory(program_counter);
-	program_counter++;
-	unsigned char operand_B = read_memory(program_counter);
-	program_counter++;
-	int memory_address = read_memory(program_counter);
-	unsigned char operand_C = operand_A & operand_B;
-	set_memory(memory_address,operand_C);	
-}
 
-void instruction_or(){
-	program_counter++;
-	unsigned char operand_A = read_memory(program_counter);
-	program_counter++;
-	unsigned char operand_B = read_memory(program_counter);
-	program_counter++;
-	int memory_address = read_memory(program_counter);
-	unsigned char operand_C = operand_A | operand_B;
-	set_memory(memory_address,operand_C);
-}
 
-void instruction_xor(){
-	program_counter++;
-	unsigned char operand_A = read_memory(program_counter);
-	program_counter++;
-	unsigned char operand_B = read_memory(program_counter);
-	program_counter++;
-	int memory_address = read_memory(program_counter);
-	unsigned char operand_C = operand_A ^ operand_B;
-	set_memory(memory_address,operand_C);
-}
+
 
