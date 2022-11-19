@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1664929685 source:j:\meu drive\pessoal\backup\pc_casa\documents\uva\compiladores\compiladores\src\interpreter_isa\instructions.c
+	<stdbool.h>
+	"memory.h"
+
+1664934823 j:\meu drive\pessoal\backup\pc_casa\documents\uva\compiladores\compiladores\src\interpreter_isa\memory.h
+
+1664929686 source:j:\meu drive\pessoal\backup\pc_casa\documents\uva\compiladores\compiladores\src\interpreter_isa\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<locale.h>
+	<string.h>
+	"instructions.h"
+	"memory.h"
+
+1664929685 j:\meu drive\pessoal\backup\pc_casa\documents\uva\compiladores\compiladores\src\interpreter_isa\instructions.h
+
+1664929685 source:j:\meu drive\pessoal\backup\pc_casa\documents\uva\compiladores\compiladores\src\interpreter_isa\binary_tools.c
+	<stdio.h>
+	<stdlib.h>
+
+1664934823 source:j:\meu drive\pessoal\backup\pc_casa\documents\uva\compiladores\compiladores\src\interpreter_isa\memory.c
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
