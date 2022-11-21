@@ -40,14 +40,22 @@
       know about them.  */
    enum yytokentype {
      NUMBER = 258,
-     ADD = 259,
-     EOL = 260
+     FLOAT = 259,
+     EOL = 260,
+     ADD = 261,
+     SUB = 262,
+     MUL = 263,
+     DIV = 264
    };
 #endif
 /* Tokens.  */
 #define NUMBER 258
-#define ADD 259
+#define FLOAT 259
 #define EOL 260
+#define ADD 261
+#define SUB 262
+#define MUL 263
+#define DIV 264
 
 
 
