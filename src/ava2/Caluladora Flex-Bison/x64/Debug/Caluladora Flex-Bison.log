@@ -1,4 +1,2 @@
-﻿  Process "calculadora.y" bison file
-I:\Meu Drive\Pessoal\Backup\pc_casa\Documents\UVA\Compiladores\win_flex_bison\custom_build_rules\win_flex_bison\win_flex_bison_custom_build.targets(55,5): error MSB3721: The command "
-I:\Meu Drive\Pessoal\Backup\pc_casa\Documents\UVA\Compiladores\win_flex_bison\custom_build_rules\win_flex_bison\win_flex_bison_custom_build.targets(55,5): error MSB3721: start /B /WAIT /D "I:\Meu Drive\Pessoal\Backup\pc_casa\Documents\UVA\Compiladores\compiladores\src\ava2\Caluladora Flex-Bison\" win_bison.exe --output="calculadora.tab.cpp" --defines="calculadora.tab.h"  "calculadora.y"
-I:\Meu Drive\Pessoal\Backup\pc_casa\Documents\UVA\Compiladores\win_flex_bison\custom_build_rules\win_flex_bison\win_flex_bison_custom_build.targets(55,5): error MSB3721: exit /b %errorlevel%" exited with code 1.
+﻿  Process "calc.y" bison file
+  Process "calc.l" flex file

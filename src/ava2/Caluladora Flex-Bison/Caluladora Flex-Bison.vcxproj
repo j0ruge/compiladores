@@ -18,6 +18,12 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <Flex Include="calc.l" />
+  </ItemGroup>
+  <ItemGroup>
+    <Bison Include="calc.y" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -128,12 +134,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <Flex Include="calculadora.l" />
-  </ItemGroup>
-  <ItemGroup>
-    <Bison Include="calculadora.y" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\..\..\..\win_flex_bison\custom_build_rules\win_flex_bison\win_flex_bison_custom_build.targets" />

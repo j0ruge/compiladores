@@ -2,9 +2,11 @@
 //#define YYSTYPE double // Resolver erro que ao habilitar essa linha MUL e DIV param de funcionar
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 void yyerror(char *c); /* implementação obrigatória em arquivos yacc*/
 int yylex(void); /* implementação obrigatória em arquivos y, informa ao yacc que a função oriunda do Lex, existe */
+FILE* input_file;
 %}
 
 /* Simbolos terminais */
@@ -24,7 +26,8 @@ int yylex(void); /* implementação obrigatória em arquivos y, informa ao yacc 
 
 SENTENCE:
 	SENTENCE EXP EOL {$$ = $2; printf("O valor obtido foi %d\n", $2); }
-	| SENTENCE EOL {printf("\n");}	
+	| SENTENCE EOL {printf("\n");}			
+	| error ';' /* On error, skip until ';' is read.  */	 
 	|
 	;
 
@@ -36,7 +39,7 @@ EXP:
 	| EXP MUL EXP 						{$$ = $1 * $3; printf("Resolvi %d * %d = %d\n", $1, $3, $$);}
 	| EXP DIV EXP 						{$$ = $1 / $3; printf("Resolvi %d / %d = %d\n", $1, $3, $$);}
 	| LEFT_BRACKET EXP RIGHT_BRACKET	{$$ = $2;}
-	| SUB EXP	  						{$$ = -$2; printf("Inversao do sinal de %d\n", $2);}
+	| SUB EXP							{$$ = -$2; printf("Inversao do sinal de %d\n", $2);}
 	;
 %%
 
@@ -44,7 +47,11 @@ void yyerror(char *c){
 	printf("Erro: %s\n", c);
 }
 
-int main() {	
+/* Entry point */
+int main(int argc, char **argv) {	
+
+	printf("Insira seu calculo: ");
+	
 	yyparse();
 	return 0;
 }

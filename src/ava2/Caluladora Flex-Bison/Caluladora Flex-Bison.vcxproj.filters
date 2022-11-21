@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Bison Include="calculadora.y">
-      <Filter>Source Files</Filter>
-    </Bison>
-  </ItemGroup>
-  <ItemGroup>
-    <Flex Include="calculadora.l">
+    <Flex Include="calc.l">
       <Filter>Source Files</Filter>
     </Flex>
+  </ItemGroup>
+  <ItemGroup>
+    <Bison Include="calc.y">
+      <Filter>Source Files</Filter>
+    </Bison>
   </ItemGroup>
 </Project>
