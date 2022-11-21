@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 //#include "y.tab.h"
-#include "projeto_calc.tab.h"
+#include "y.tab.h"
 %}
 %option yylineno
 %%

@@ -13,7 +13,7 @@ int yylex(void); /* implementação obrigatória em arquivos y, informa ao yacc 
 
 S:
 	S E EOL {$$ = $2; printf("O valor obtido é %d\n", $2); }
-	|
+	| 	
 	;
 
 E:

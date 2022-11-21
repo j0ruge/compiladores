@@ -39,14 +39,14 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     N = 258,
-     OP = 259,
+     NUMBER = 258,
+     ADD = 259,
      EOL = 260
    };
 #endif
 /* Tokens.  */
-#define N 258
-#define OP 259
+#define NUMBER 258
+#define ADD 259
 #define EOL 260
 
 

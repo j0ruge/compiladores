@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "projeto_calc.h"
+#include "y.tab.h"
 void yyerror(char *c);
 int yylex(void);
 %}
