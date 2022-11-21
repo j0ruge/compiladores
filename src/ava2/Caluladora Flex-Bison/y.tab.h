@@ -42,20 +42,24 @@
      NUMBER = 258,
      FLOAT = 259,
      EOL = 260,
-     ADD = 261,
-     SUB = 262,
-     MUL = 263,
-     DIV = 264
+     LEFT_BRACKET = 261,
+     RIGHT_BRACKET = 262,
+     ADD = 263,
+     SUB = 264,
+     MUL = 265,
+     DIV = 266
    };
 #endif
 /* Tokens.  */
 #define NUMBER 258
 #define FLOAT 259
 #define EOL 260
-#define ADD 261
-#define SUB 262
-#define MUL 263
-#define DIV 264
+#define LEFT_BRACKET 261
+#define RIGHT_BRACKET 262
+#define ADD 263
+#define SUB 264
+#define MUL 265
+#define DIV 266
 
 
 
