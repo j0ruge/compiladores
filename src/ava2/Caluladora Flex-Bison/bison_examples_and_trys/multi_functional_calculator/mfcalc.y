@@ -68,14 +68,14 @@ struct init
 };
 
 struct init const arith_fncts[] =
-{
-    "sin",  sin,
-    "cos",  cos,
+{     
+    "sin",  sin, 
+    "cos",  cos, 
     "atan", atan,
     "ln",   log,
     "exp",  exp,
     "sqrt", sqrt,
-    0, 0
+    0, 0    
 };
 
 /* The symbol table: a chain of `struct symrec'.  */

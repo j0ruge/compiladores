@@ -7,7 +7,7 @@
 %option yylineno
 %%
 ([0-9]+|[0-9]*\.[0-9]+)([eE][+-]?[0-9]+)? {
-    sscanf(yytext, "lf", &yylval.val);
+    sscanf(yytext, "%lf", &yylval.val);
     return NUM;
 }
 [a-zA-Z][a-zA-Z_0-9]* {

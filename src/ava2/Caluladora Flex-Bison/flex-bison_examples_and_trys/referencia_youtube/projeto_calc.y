@@ -2,17 +2,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include "calc.h"  /* Contains definition of `symrec'.  */
 #include "y.tab.h"
 void yyerror(char *c);
 int yylex(void);
 %}
 %union {
     double val; /* for returning numbers */
-    struct symrec *tptr;
+    struct symrec  *tptr;
 }
 
 %token <val> NUM            /* Simple double precision number   */
-%token <tprt> VAR FNCT      /* Variable and Function            */
+%token <tptr> VAR FNCT      /* Variable and Function            */
 %type <val> exp             /* For nonterminal symbols          */
 
 %right '='
@@ -51,40 +52,48 @@ exp : NUM                   { $$ = $1;                          }
 %%
 struct init {
     char * fname;
-    double (*fnct) (double)
+    double (*fnct) (double);
 };
 
-struct init arith_fncts[] = {
-    "sin"   , & sin, 
-    "cos"   , & cos,
-    "tag"   , & atag,
-    "ln"    , & log,
-    "exp"   , & exp,
-    "sqrt"  , & sqrt,
-    0       , 0
+struct init const arith_fncts[] =
+{
+    "sin",  sin,
+    "cos",  cos,
+    "atan", atan,
+    "ln",   log,
+    "exp",  exp,
+    "sqrt", sqrt,
+    0, 0
 };
 
 /* The symbol table: a chain of 'struct symrec' */
 symrec * sym_table = (symrec *) 0;
 
-symrec * putsym (char * sym_name, int sym_type){
-    symrec * ptr;
-    ptr = (symrec *) malloc (sizeof(symrec));
-    ptr->name = (char *) malloc(strlen (sym_name) + 1);
-    strcpy(ptr->name, sym_name);
+/* Symbol table Functions. */
+
+symrec *
+putsym (char const *sym_name, int sym_type)
+{
+    symrec *ptr;
+    ptr = (symrec *) malloc (sizeof (symrec));
+    ptr->name = (char *) malloc (strlen (sym_name) + 1);
+    strcpy (ptr->name,sym_name);
     ptr->type = sym_type;
-    ptr->value.var = 0; /* set value to 0 even if fctn */
-    ptr->next = (struct symrec *) sym_table;
+    ptr->value.var = 0; /* Set value to 0 even if fctn.  */
+    ptr->next = (struct symrec *)sym_table;
     sym_table = ptr;
     return ptr;
 }
-
-symrec * getsym (char * sym_name){
-    symrec * ptr;
-    for (ptr = sym_table; ptr != (symrec *) 0; ptr = (symrec *) ptr->next)
-        if( strcmp(ptr->name, sym_name) == 0)
-            return ptr;
-    return (symrec *) 0;
+     
+symrec *
+getsym (char const *sym_name)
+{
+    symrec *ptr;
+    for (ptr = sym_table; ptr != (symrec *) 0;
+        ptr = (symrec *)ptr->next)
+        if (strcmp (ptr->name,sym_name) == 0)
+        return ptr;
+    return 0;
 }
 
 void yyerror(char *c){

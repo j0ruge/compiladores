@@ -39,35 +39,36 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     FLOAT = 258,
-     INTEGER = 259,
-     EOL = 260,
-     LEFT_BRACKET = 261,
-     RIGHT_BRACKET = 262,
-     SUB = 263,
-     ADD = 264,
-     DIV = 265,
-     MUL = 266,
-     NEG = 267
+     NUM = 258,
+     VAR = 259,
+     FNCT = 260,
+     NEG = 261
    };
 #endif
 /* Tokens.  */
-#define FLOAT 258
-#define INTEGER 259
-#define EOL 260
-#define LEFT_BRACKET 261
-#define RIGHT_BRACKET 262
-#define SUB 263
-#define ADD 264
-#define DIV 265
-#define MUL 266
-#define NEG 267
+#define NUM 258
+#define VAR 259
+#define FNCT 260
+#define NEG 261
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+
+/* Line 1676 of yacc.c  */
+#line 10 "projeto_calc.y"
+
+    double val; /* for returning numbers */
+    struct symrec  *tptr;
+
+
+
+/* Line 1676 of yacc.c  */
+#line 71 "y.tab.h"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
