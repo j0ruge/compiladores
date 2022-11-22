@@ -1,0 +1,132 @@
+Grammar
+
+    0 $accept: input $end
+
+    1 input: /* empty */
+    2      | input line
+
+    3 line: '\n'
+    4     | exp '\n'
+    5     | error '\n'
+
+    6 exp: NUMBER
+    7    | exp ADD exp
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'\n' (10) 3 4 5
+error (256) 5
+NUMBER (258) 6
+ADD (259) 7
+
+
+Nonterminals, with rules where they appear
+
+$accept (6)
+    on left: 0
+input (7)
+    on left: 1 2, on right: 0 2
+line (8)
+    on left: 3 4 5, on right: 2
+exp (9)
+    on left: 6 7, on right: 4 7
+
+
+state 0
+
+    0 $accept: . input $end
+
+    $default  reduce using rule 1 (input)
+
+    input  go to state 1
+
+
+state 1
+
+    0 $accept: input . $end
+    2 input: input . line
+
+    $end    shift, and go to state 2
+    error   shift, and go to state 3
+    NUMBER  shift, and go to state 4
+    '\n'    shift, and go to state 5
+
+    line  go to state 6
+    exp   go to state 7
+
+
+state 2
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+state 3
+
+    5 line: error . '\n'
+
+    '\n'  shift, and go to state 8
+
+
+state 4
+
+    6 exp: NUMBER .
+
+    $default  reduce using rule 6 (exp)
+
+
+state 5
+
+    3 line: '\n' .
+
+    $default  reduce using rule 3 (line)
+
+
+state 6
+
+    2 input: input line .
+
+    $default  reduce using rule 2 (input)
+
+
+state 7
+
+    4 line: exp . '\n'
+    7 exp: exp . ADD exp
+
+    ADD   shift, and go to state 9
+    '\n'  shift, and go to state 10
+
+
+state 8
+
+    5 line: error '\n' .
+
+    $default  reduce using rule 5 (line)
+
+
+state 9
+
+    7 exp: exp ADD . exp
+
+    NUMBER  shift, and go to state 4
+
+    exp  go to state 11
+
+
+state 10
+
+    4 line: exp '\n' .
+
+    $default  reduce using rule 4 (line)
+
+
+state 11
+
+    7 exp: exp . ADD exp
+    7    | exp ADD exp .
+
+    $default  reduce using rule 7 (exp)
