@@ -24,11 +24,10 @@ input: /* empty */
 	| input EOL { printf("\n"); }	
 ;
 
-
-line: T_IDEN OP_EQL exp           { $$ = $3; $1 = $3; }
-    | exp                         { $$ = $1; }
+line: '\n'
+    | exp           { $$ = $1; }	
+    | error '\n'    { yyerrok;                 }
 ;
-
 
 exp: exp ADD term          { $$ = $1 + $3; }
     | exp SUB term          { $$ = $1 - $3; }
