@@ -41,31 +41,31 @@
    enum yytokentype {
      FLOAT = 258,
      INTEGER = 259,
-     OP_EQL = 260,
-     EOL = 261,
-     FUNC_L = 262,
-     FUNC_R = 263,
-     T_IDEN = 264,
-     SUB = 265,
-     ADD = 266,
-     DIV = 267,
-     MUL = 268,
-     OP_POW = 269
+     EOL = 260,
+     T_IDEN = 261,
+     LEFT_BRACKET = 262,
+     RIGHT_BRACKET = 263,
+     SUB = 264,
+     ADD = 265,
+     DIV = 266,
+     MUL = 267,
+     OP_POW = 268,
+     NEG = 269
    };
 #endif
 /* Tokens.  */
 #define FLOAT 258
 #define INTEGER 259
-#define OP_EQL 260
-#define EOL 261
-#define FUNC_L 262
-#define FUNC_R 263
-#define T_IDEN 264
-#define SUB 265
-#define ADD 266
-#define DIV 267
-#define MUL 268
-#define OP_POW 269
+#define EOL 260
+#define T_IDEN 261
+#define LEFT_BRACKET 262
+#define RIGHT_BRACKET 263
+#define SUB 264
+#define ADD 265
+#define DIV 266
+#define MUL 267
+#define OP_POW 268
+#define NEG 269
 
 
 

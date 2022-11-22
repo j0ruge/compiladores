@@ -3,18 +3,21 @@
 #include <stdlib.h>
 #include <math.h>
 #define YYSTYPE double
-int yylex(void);
-void yyerror(char*);
+int yylex(void); /* implementação obrigatória em arquivos y, informa ao yacc que a função oriunda do Lex, existe */
+void yyerror(char*); /* implementação obrigatória em arquivos yacc*/
 %}
 
+/* Simbolos terminais */
 %token FLOAT INTEGER
-%right OP_EQL
 %token EOL
-%token FUNC_L FUNC_R
 %token T_IDEN
+%token LEFT_BRACKET
+%token RIGHT_BRACKET
+
+/* Informa ao yacc que a precedencia dos operadores se dará pela esquerda ou direita */
 %left ADD SUB
 %left MUL DIV
-%left OP_POW
+%left NEG     /* negation--unary minus */
 
 
 %%
@@ -29,8 +32,11 @@ line: '\n'
     | error '\n'    { yyerrok;                 }
 ;
 
-exp: exp ADD term          { $$ = $1 + $3; }
-    | exp SUB term          { $$ = $1 - $3; }
+exp: exp ADD term                       { $$ = $1 + $3; }
+    | exp SUB term                      { $$ = $1 - $3; }
+    | LEFT_BRACKET exp RIGHT_BRACKET    { $$ = $2;      }
+    | '-' exp  %prec NEG                { $$ = -$2;     } 
+    | NEG exp                           { $$ = -$2;     } 
     | term  { $$ = $1; }
 ;
 
@@ -41,10 +47,6 @@ term: term MUL unary        { $$ = $1 * $3; }
 
 unary: SUB unary            { $$ = $2 * -1; }
     | pow                       { $$ = $1; }
-;
-
-pow: factor OP_POW pow           { $$ = pow($1,$3); }
-    | factor                    { $$ = $1; }
 ;
 
 factor: T_IDEN                                    { $$ = $1; }

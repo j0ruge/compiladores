@@ -14,6 +14,8 @@ real ({digit}+[\.]{digit}*)|({digit}*[\.]{digit}+)
 [-] 	{ return SUB; }
 [*] 	{ return MUL; }
 [/] 	{ return DIV; }
+[(]		{ return LEFT_BRACKET;}
+[)]		{ return RIGHT_BRACKET;}
 
 
 {integer} {    
