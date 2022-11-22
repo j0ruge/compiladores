@@ -1,3 +1,3 @@
 git add .
-git commit -m "Atualização genérica"
+git commit -m "Atualizacao generica"
 git push
