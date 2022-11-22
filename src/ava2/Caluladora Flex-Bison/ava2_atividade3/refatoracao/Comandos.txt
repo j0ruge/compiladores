@@ -1,0 +1,3 @@
+flex calculadora.lex
+bison -d -y calculadora.y
+gcc -o calculadora y.tab.c lex.yy.c
