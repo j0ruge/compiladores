@@ -18,19 +18,15 @@ real ({digit}+[\.]{digit}*)|({digit}*[\.]{digit}+)
 [)]		{ return RIGHT_BRACKET;}
 
 
-{integer} {    
+{integer} {    	
 	sscanf(yytext, "%lf", (double*) &yylval);
 	return INTEGER;
 }
-{real}  {
+{real}  {	
 	sscanf(yytext, "%lf", (double*) &yylval);	
 	return FLOAT;
 }
-[a-zA-Z]([a-zA-Z]|[0-9])* {
-printf("T_IDEN  ");
 
-return T_IDEN;
-}
 \n { return EOL; }
 [ \t]+ ;
 
